@@ -18,15 +18,15 @@ public class AlunoController{
 	private String cpf = "";
 	
 	public List<Aluno> pesquisarAlunos (String nome) {
-		return aluno.buscarAlunos(nome);				
+		return aluno.buscarVarios(nome);				
 	}
 	
 	public Aluno pesquisarAluno (String cpf) {
-		return aluno.buscarAluno(cpf);
+		return aluno.buscar(cpf);
 	}
 
 	public String[] listarCursos (){
-        ArrayList cs = (ArrayList) curso.buscarCursos();
+        ArrayList cs = (ArrayList) curso.buscarVarios();
         String[] cursos = new String[cs.size()];
         for(int x = 0; x < cs.size(); x++){
         	cursos[x] = ((Curso) cs.get(x)).getNome();
