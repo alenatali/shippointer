@@ -352,21 +352,30 @@ SELECT * FROM usuario WHERE usuario=? AND senha=?
 --*********************************Relatório
 
 --cursos mais populares
-SELECT cs.codigo, cs.sigla, cs.nome AS curso, cs.periodo, ma.curso_cod AS n_matriculas
+SELECT CONVERT(varchar, cs.codigo)+' - '+cs.sigla+' - '+cs.nome+' - '+cs.periodo+' - '+CONVERT(varchar, ma.curso_cod) AS inf
 FROM curso cs LEFT JOIN matricula ma
 ON ma.curso_cod = cs.codigo
 GROUP BY cs.nome, ma.curso_cod, cs.codigo, cs.sigla, cs.periodo
-ORDER BY n_matriculas DESC
 
---curso por região
-SELECT *
-FROM curso cs LEFT JOIN matricula ma
-ON ma.curso_cod = cs.codigo
+--aluno por região
+SELECT al.nome+' '+ed.cidade
+FROM aluno al
+INNER JOIN aluno_endereco
+ON al.cpf = aluno_endereco.aluno_cpf
+INNER JOIN endereco ed
+ON aluno_endereco.endereco_codigo = ed.codigo 
+ORDER BY ed.cidade, al.nome
+
+--listar alunos por curso
+
+SELECT ma.ra, al.nome
+FROM matricula ma
 INNER JOIN aluno al
-ON al.cpf = ma.aluno_cpf
-INNER JOIN aluno_endereco ae
-ON al.cpf = ae.aluno_cpf
-INNER JOIN endereco en
-ON ae.endereco_codigo = en.codigo
+ON ma.aluno_cpf = al.cpf
+INNER JOIN curso cu
+ON ma.curso_cod = cu.codigo
+WHERE cu.codigo = 1
+
+
 
 

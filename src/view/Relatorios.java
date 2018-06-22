@@ -1,7 +1,13 @@
 package view;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -10,26 +16,61 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 
+import controller.RelatorioCtrl;
+import controller.CursoCtrl;
+
 public class Relatorios extends JFrame {
 	private JButton btnPesquisarAlunosCurso, btnPesquisarAlunosRegiao, btnPesquisarCursosPopulares;
-    private JComboBox<String> cmbAlunosCurso;
+    private JComboBox<model.Curso> cmbAlunosCurso;
     private JScrollPane jScrollPane1;
     private JLabel lblAlunosCurso, lblAlunosRegiao, lblCursosPopulares, lblRelatorios, lblVisualizacao;
     private JTextPane txtVisualizacaoRelatorio;
     private JPanel painel;
+    private CursoCtrl cursoCtrl;
+    private RelatorioCtrl relatorioCtrl;
 
     public Relatorios() {
 		super("Acesso ao Sistema - Relatórios");
 		painel = new JPanel();
 		
+    	relatorioCtrl = new RelatorioCtrl();
+    	cursoCtrl = new CursoCtrl();
+    	
     	lblVisualizacao = new JLabel("Visualização");
         btnPesquisarAlunosCurso = new JButton("PESQUISAR");
+        btnPesquisarAlunosCurso.addActionListener( new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				txtVisualizacaoRelatorio.setText( 
+					relatorioCtrl.getRelatorioAlunoCurso(
+						(model.Curso)cmbAlunosCurso.getSelectedItem()
+					)
+				);
+			}
+		});
         lblAlunosCurso = new javax.swing.JLabel("ALUNOS POR CURSO:");
-        lblCursosPopulares = new JLabel("CURSOS MAIS POPULARES:");
+        lblCursosPopulares = new JLabel("CURSOS COM MAIS ALUNOS:");
         btnPesquisarCursosPopulares = new JButton("PESQUISAR");
-        lblAlunosRegiao = new JLabel("ALUNOS POR REGIÃO");
+        btnPesquisarCursosPopulares.addActionListener( new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				txtVisualizacaoRelatorio.setText( relatorioCtrl.getRelatorioCursosPopulares () );
+			}
+		} );
+        lblAlunosRegiao = new JLabel("ALUNOS POR CIDADE");
         btnPesquisarAlunosRegiao = new JButton("PESQUISAR");
+        btnPesquisarAlunosRegiao.addActionListener( new ActionListener() {
+        	@Override
+        	public void actionPerformed(ActionEvent e) {
+        		txtVisualizacaoRelatorio.setText( relatorioCtrl.getRelatorioAlunoCidade() );
+        	}
+        });
         cmbAlunosCurso = new JComboBox<>();
+        ComboBoxModel cmbModel = new DefaultComboBoxModel<model.Curso>(
+        	cursoCtrl.getCursos()
+        );
+        cmbAlunosCurso.setModel(cmbModel);
+        
         jScrollPane1 = new JScrollPane();
         txtVisualizacaoRelatorio = new JTextPane();
         lblRelatorios = new JLabel("Relatórios");
@@ -85,5 +126,7 @@ public class Relatorios extends JFrame {
     public static void main (String[] args) {
     	new Relatorios();
     }
+
+
 }
 
