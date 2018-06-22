@@ -94,10 +94,10 @@ public class Login extends JFrame {
         		
         		if(e.getSource().getClass().getName().equals(JButton.class.getName())){
         			
-        			dispose();
-    				new Home ( new Usuario() );
+        			/*dispose();
+    				new Home ( new Usuario() );*/
         			
-        			/*String user = txtLogin.getText(); FUNCIONANDO
+        			String user = txtLogin.getText();
         			String pass = txtSenha.getText();
         			
         			if(!user.equals("") && !pass.equals("")){
@@ -110,7 +110,7 @@ public class Login extends JFrame {
 	        			}
         			}else {
         				JOptionPane.showMessageDialog(null, "Preencha ambos os campos");
-        			}*/
+        			}
         		}
         	}
         });

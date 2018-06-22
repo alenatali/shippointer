@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -9,21 +11,31 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import controller.CursoCtrl;
+
 public class Curso extends JFrame {
     private JButton btnCancelar, btnPesquisar, btnSalvar;
     private JComboBox<String> cmbPeriodo;
     private JLabel lblCadCurso, lblNome, lblPeriodo, lblSigla;
     private JTextField txtNome, txtSigla;
     private JPanel painel;
+    private CursoCtrl cursoCtrl;
     
     public Curso() {
 		super("Acesso ao Sistema - Cadastro de Cursos");
 		painel = new JPanel();
 		
+		cursoCtrl = new CursoCtrl();
+		
     	lblCadCurso = new JLabel("Cadastro de Cursos");
         lblSigla = new JLabel("SIGLA:");
         txtSigla = new JTextField();
         btnPesquisar = new JButton("PESQUISAR");
+        btnPesquisar.addActionListener( new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
         lblNome = new JLabel("NOME:");
         txtNome = new JTextField();
         lblPeriodo = new JLabel("PERÍODO:");
