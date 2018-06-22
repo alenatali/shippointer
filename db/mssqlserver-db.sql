@@ -347,3 +347,26 @@ DELETE FROM matricula WHERE ra = ?
 --*********************************Usuário
 
 SELECT * FROM usuario WHERE usuario=? AND senha=?
+
+
+--*********************************Relatório
+
+--cursos mais populares
+SELECT cs.codigo, cs.sigla, cs.nome AS curso, cs.periodo, ma.curso_cod AS n_matriculas
+FROM curso cs LEFT JOIN matricula ma
+ON ma.curso_cod = cs.codigo
+GROUP BY cs.nome, ma.curso_cod, cs.codigo, cs.sigla, cs.periodo
+ORDER BY n_matriculas DESC
+
+--curso por região
+SELECT *
+FROM curso cs LEFT JOIN matricula ma
+ON ma.curso_cod = cs.codigo
+INNER JOIN aluno al
+ON al.cpf = ma.aluno_cpf
+INNER JOIN aluno_endereco ae
+ON al.cpf = ae.aluno_cpf
+INNER JOIN endereco en
+ON ae.endereco_codigo = en.codigo
+
+

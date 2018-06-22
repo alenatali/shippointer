@@ -4,7 +4,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import util.EPerfil;
-import util.ETipoEndereco;
 
 public class Usuario {
 	

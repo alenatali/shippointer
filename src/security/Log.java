@@ -1,8 +1,5 @@
 package security;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import dao.mssqlserver.UsuarioDAO;
 
 public class Log {

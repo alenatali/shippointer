@@ -229,11 +229,12 @@ public class Aluno extends JFrame {
         cmbEstado.setBounds(100, 280, 80, 20);
         lblNumero.setBounds(350, 250, 60, 15);
         
+        
 	    this.setContentPane(painel);
 	    this.pack();
         this.setSize( 860, 640 );
-		this.setVisible( true );
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setVisible( true );
         
 	}
 
