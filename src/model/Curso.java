@@ -42,4 +42,8 @@ public class Curso {
 	public void setPeriodo(char periodo) {
 		this.periodo = periodo;
 	}
+	
+	public String toString() {
+		return nome;
+	}
 }
