@@ -19,20 +19,8 @@ public class Log {
 		return log;
 	}
 	
-	public boolean validar (String user, String pass) {
-		return new UsuarioDAO().validar(user, pass);
+	public Usuario validar (String user, String pass) {
+		return new UsuarioDAO().validar(user, Usuario.hash( pass ));
 	}
 	
-	public static String hash (String s) {
-		String encryptedString = "";
-		MessageDigest messageDigest;
-		try {
-			messageDigest = MessageDigest.getInstance("SHA-256");
-			messageDigest.update(s.getBytes());
-			encryptedString = new String(messageDigest.digest());
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		}
-		return encryptedString;
-	}
 }

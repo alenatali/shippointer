@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import security.Usuario;
+
 public class Home extends JFrame {
     private JButton btnCadAluno;
     private JButton btnCadCurso;
@@ -18,7 +20,7 @@ public class Home extends JFrame {
     private JLabel lblHome;
     private JPanel painel;
 
-	public Home() {
+	public Home(Usuario u) {
 		super("Acesso ao Sistema - Home");
 		painel = new JPanel();
 		
@@ -92,8 +94,4 @@ public class Home extends JFrame {
         	}
         }); 
 	}
-	
-    public static void main(String[] args) {
-        new Home();
-    }
 }

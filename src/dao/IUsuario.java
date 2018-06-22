@@ -1,7 +1,9 @@
 package dao;
 
+import security.Usuario;
+
 public interface IUsuario {
 	
-	public boolean validar (String user, String pass);
+	public Usuario validar (String user, String pass);
 
 }

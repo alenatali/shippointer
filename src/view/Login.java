@@ -7,12 +7,14 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import security.Log;
+import security.Usuario;
 
 public class Login extends JFrame {
 	private JButton btnAcessar;
@@ -91,15 +93,22 @@ public class Login extends JFrame {
         	public void actionPerformed(ActionEvent e) {
         		
         		if(e.getSource().getClass().getName().equals(JButton.class.getName())){
-        			new Aluno();
-        			/*String user = Log.hash( txtLogin.getText() );
-        			String pass = Log.hash( txtSenha.getText() );
-        			if(Log.getLog().validar(user, pass)){
-        				dispose();
-        			}*/
+        			
+        			String user = txtLogin.getText();
+        			String pass = txtSenha.getText();
+        			
+        			if(!user.equals("") && !pass.equals("")){
+        				Usuario u = Log.getLog().validar( user,pass );
+	        			if(u != null){
+	        				dispose();
+	        				new Home (u);
+	        			} else{
+	        				JOptionPane.showMessageDialog(null, "Informacoes invalidas");
+	        			}
+        			}else {
+        				JOptionPane.showMessageDialog(null, "Preencha ambos os campos");
+        			}
         		}
-        		
-        		
         	}
         });
 	}

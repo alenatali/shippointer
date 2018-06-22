@@ -122,9 +122,10 @@ FOREIGN KEY (contato_codigo) REFERENCES contato(codigo)
 CREATE TABLE endereco (
 codigo       INT NOT NULL IDENTITY,
 tipo         CHAR(2) NOT NULL,
+cep          CHAR(8) NULL,
 logradouro   VARCHAR(50) NOT NULL,
 n            VARCHAR(7) NOT NULL,
-complemento  VARCHAR(20) NOT NULL,
+complemento  VARCHAR(50) NULL,
 uf           CHAR(2) NOT NULL,
 cidade       VARCHAR(50) NOT NULL
 
@@ -149,8 +150,87 @@ FOREIGN KEY (empresa_cnpj) REFERENCES empresa(cnpj),
 FOREIGN KEY (endereco_codigo) REFERENCES endereco(codigo)
 )
 
+CREATE TABLE usuario (
+codigo  INT NOT NULL IDENTITY,
+usuario VARCHAR(200) NOT NULL,
+senha   VARCHAR(200) NOT NULL,
+dica    VARCHAR(20) NULL,
+perfil  CHAR(2) NULL
 
+PRIMARY KEY (usuario, senha)
+)
 
+TRUNCATE TABLE usuario
+
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
+----------------------------------**Dados**
+
+INSERT INTO curso (sigla,nome,periodo) VALUES
+('COMX', 'Comércio exterior', 't'),
+('POLI', 'Polimeros', 'n'),
+('ADS', 'Análise e Desenvolvimento de Software', 'n')
+
+INSERT INTO aluno (cpf,nome,dt_nasc) VALUES
+('1', 'Lucas Montes', '1998-04-20 00:00:00.000'),
+('81057866806', 'Luciana Maria', '1990-08-12 00:00:00.000'),
+('84263543866', 'Carol Fitch', '1993-01-02 00:00:00.000'),
+('39624581827', 'Marcos Tilo', '1999-02-26 00:00:00.000'),
+('75278270845', 'Johanna Lee', '1986-12-17 00:00:00.000')
+
+INSERT INTO matricula (ra,curso_cod,aluno_cpf,sstatus,dt_inicio,dt_termino) VALUES
+('00001', 2, '1', 't', '2013-06-12 00:00:00.000', '2016-06-20 00:00:00.000'),
+('00002', 3, '1', 'a', '2016-07-01 00:00:00.000', NULL),
+('00003', 3, '39624581827', 'a', '2016-07-01 00:00:00.000', NULL),
+('00004', 3, '75278270845', 't', '2013-06-12 00:00:00.000', '2016-06-20 00:00:00.000'),
+('00005', 1, '81057866806', 'a', '2016-07-01 00:00:00.000', NULL),
+('00006', 2, '84263543866', 'a', '2016-07-01 00:00:00.000', NULL)
+
+INSERT INTO contato (valor,descricao) VALUES
+('bla@bla.com', 'email'),
+('988888888', 'celular'),
+('88888888', 'casa'),
+('eee@eee.com', 'email comercial'),
+('988888888', 'celular'),
+('988888888', 'celular'),
+('aaa.com', 'site'),
+('@blublu', 'twitter'),
+('aaaaasasasas', 'linkdin'),
+('988888888', 'celular')
+
+INSERT INTO contato_aluno (aluno_cpf,contato_codigo) VALUES
+('1', 8),
+('1', 4),
+('1', 3),
+('39624581827', 1),
+('39624581827', 2),
+('75278270845', 5),
+('81057866806', 6),
+('81057866806', 7),
+('84263543866', 9),
+('84263543866', 10)
+
+INSERT INTO endereco (tipo,logradouro,n,complemento,uf,cidade) VALUES
+('av', 'Carlota Brunns', '122', '', 'sp', 'São Paulo'),
+('tr', 'Claudio Torres', '11', 'Casa A', 'sp', 'São Paulo'),
+('ru', 'Lucio Germano', '34', 'casa b', 'sp', 'São Paulo'),
+('ru', 'Lucio Germano', '34', '', 'sp', 'São Paulo'),
+('tr', 'Potinguá', '12', '', 'sp', 'São Paulo')
+
+INSERT INTO aluno_endereco (aluno_cpf, endereco_codigo) VALUES
+('1', 2),
+('39624581827', 1),
+('75278270845', 3),
+('81057866806', 4),
+('84263543866', 5)
+
+INSERT INTO usuario (usuario,senha,dica,perfil) VALUES
+('adm', '¬gBóá\vá¥âUðg•6#È³ˆ´Ežùx×ÈFô', 'adm1234', 'ad'),
+('ope', '¬gBóá\vá¥âUðg•6#È³ˆ´Ežùx×ÈFô', 'ope1234', 'op')
+
+UPDATE usuario SET senha =  '¬gBóá\vá¥âUðg•6#È³ˆ´Ežùx×ÈFô'
+
+select * from usuario
 
 ------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------
@@ -262,3 +342,8 @@ WHERE ra=?
 
 
 DELETE FROM matricula WHERE ra = ?
+
+
+--*********************************Usuário
+
+SELECT * FROM usuario WHERE usuario=? AND senha=?
